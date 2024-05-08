@@ -142,7 +142,8 @@ struct Node
 };
 */
 
-class Solution {
+// TOP DOWN APPROACH FOR FORMULATING ALL PATHS FROM ROOT->LEAF
+class Solution1 {
   vector<vector<int>> solve(Node* root){
         if(root==NULL)return {};
         if(!root->left and !root->right){
@@ -175,7 +176,38 @@ class Solution {
 };
 
 
-//{ Driver Code Starts.
+
+// BACKTRACKING APPROACH THAT COLLECTS ALL PATHS AT LEAF
+class Solution {
+    void solve(vector<vector<int>>&ans , Node* root , vector<int> path){
+        if(!root)return;
+        
+        if(!root->left and !root->right){
+            path.push_back(root->data);
+            ans.push_back(path);
+            return;
+        }
+        
+        
+        path.push_back(root->data);
+        solve(ans,root->left,path);
+        solve(ans,root->right,path);
+        
+    }
+  public:
+    vector<vector<int>> Paths(Node* root) {
+        // code here
+        vector<vector<int>> ans;
+        solve(ans,root,{});
+        return ans;
+    }
+};
+
+
+
+
+
+
 
 int main(){
     int t;
